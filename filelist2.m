@@ -3,7 +3,7 @@ function listfiles=filelist2
 % gets a list of all saved matlab files
 % and feeds them into vector for use as scripting args
 %
-basedir = 'casia_images';
+basedir = 'results2014';
 
 categorydir = { 'CASIA-Iris-Interval' };
 
@@ -25,13 +25,17 @@ for category = categorydir(1)
                 eyes = {'L','R'};
                 for eye = 1:size(eyes,2)   
                     subjecteye = eyes(eye);               
-                    tmpdir = fullfile(subdir,subjecteye,'/');
+                    tmpdir = fullfile(subdir,subjecteye);
                     directory = tmpdir{:};
-                    files = ls ([directory,'/*.jpg']);
+                    files = dir(fullfile(directory,'*.mat'));
                     if ((size(files,1) > 0)) 
                         for f = 1:size(files,1)
-                            filename = files(f,:);
-                            if ~( strcmp(filename,'.') || strcmp(filename,'..'))
+                            filename = files(f).name;
+                            if ~( strcmp(filename,'.') || strcmp(filename,'..') || ...
+                                  ~isempty(strfind(filename, '-masek.mat')) || ...
+                                  ~isempty(strfind(filename, '-houghpara.mat')) || ...
+                                  ~isempty(strfind(filename, '-debug.mat')) )
+
                                 % add files to list matrix
                                 listfiles = [listfiles ; { directory, subject, filename } ];                               
                             end                                   

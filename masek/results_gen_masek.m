@@ -1,8 +1,6 @@
+function results_gen_masek
 
-
-function results_gen
-
-fid = fopen('H:/research/matlab/masek/masek-same-results.txt','r');
+fid = fopen('masek-same-results.txt','r');
 
 same = zeros(1,1001);
 diff = zeros(1,1001);

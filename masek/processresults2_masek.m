@@ -1,8 +1,6 @@
+function processresults2_masek
 
-
-function processresults3
-
-fid = fopen('e:/research/masek-results.txt','r');
+fid = fopen('results_masek.txt','r');
 
 
 imp = zeros(1,1000);

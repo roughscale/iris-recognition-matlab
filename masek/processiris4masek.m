@@ -1,7 +1,7 @@
 % processes iris images on disk and writes iris code to disk
 
 % base directory where CASIA images are
-basedir = '..\casia_images';
+basedir = 'casia_images';
 
 global logfh
 logfh = fopen('process-masek.log','a');
@@ -18,12 +18,12 @@ for category = 1:size(categorydir,2)
                 eyes = {'L','R'};
                 for eye = 1:size(eyes,2)   
                     subjecteye = eyes(eye);               
-                    tmpdir = fullfile(basedir,catname{:},subjectdir(subject).name,subjecteye,'/');
+                    tmpdir = fullfile(basedir,catname{:},subjectdir(subject).name,subjecteye);
                     directory = tmpdir{:};
-                    files = ls ([directory,'/*.jpg']);
+                    files = dir(fullfile(directory,'*.jpg'));
                     if ((size(files,1) > 0)) 
                         for f = 1:size(files,1)
-                            filename = files(f,:)
+                            filename = files(f).name
                             if ~( strcmp(filename,'.') || strcmp(filename,'..'))
                                 % check image has not been processed
                                 %if exist(regexprep([directory,filename],'.jpg','.mat'),'file')
@@ -55,3 +55,4 @@ for category = 1:size(categorydir,2)
     end
 
 end
+fclose(logfh);

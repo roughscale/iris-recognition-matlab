@@ -6,9 +6,8 @@ list = filelist2;
 
 for n = 1:size(list,1)
     
-    tmp = strcat(list(n,1),list(n,3));
-    tmpfilename1 = tmp{:};
-    filename1 = regexprep(tmpfilename1,'.jpg','.mat');
+    tmp = fullfile(list(n,1),list(n,3));
+    filename1 = tmp{:};
     
     if exist(filename1,'file');
 
@@ -23,9 +22,8 @@ for n = 1:size(list,1)
 
             for m = 1:size(list,1)
 
-            tmp = strcat(list(m,1),list(m,3));
-            tmpfilename2 = tmp{:};
-            filename2 = regexprep(tmpfilename2,'.jpg','.mat');
+            tmp = fullfile(list(m,1),list(m,3));
+            filename2 = tmp{:};
 
             object = list(m,2);
         
@@ -36,7 +34,6 @@ for n = 1:size(list,1)
                     query = load(filename2,'iriscode2');
                     catch
                     end
-                    query
                     if isstruct(query)
                         try
                         HD = hammingdistance(ref.iriscode2,query.iriscode2);
@@ -57,3 +54,4 @@ for n = 1:size(list,1)
     end
     
 end
+fclose(fid)

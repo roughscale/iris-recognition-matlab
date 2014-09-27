@@ -4,7 +4,7 @@
 basedir = 'casia_images';
 
 global logfh
-logfh = fopen('process-3.log','a');
+logfh = fopen('process.log','a');
 
 % CASIA categories
 %categorydir = dir (basedir);
@@ -15,16 +15,16 @@ for category = 1:size(categorydir,2)
         subjectdir = dir (fullfile(basedir,catname{:}));
         for subject = 1:size(subjectdir,1);
             if ~( strcmp(subjectdir(subject).name,'.') || strcmp(subjectdir(subject).name,'..'))
-                if ((str2num(subjectdir(subject).name) >= 76) && (str2num(subjectdir(subject).name) <= 104))
+                %if ((str2num(subjectdir(subject).name) >= 76) && (str2num(subjectdir(subject).name) <= 104))
                 eyes = {'L','R'};
                 for eye = 1:size(eyes,2)   
                     subjecteye = eyes(eye);               
-                    tmpdir = fullfile(basedir,catname{:},subjectdir(subject).name,subjecteye,'/');
+                    tmpdir = fullfile(basedir,catname{:},subjectdir(subject).name,subjecteye);
                     directory = tmpdir{:};
-                    files = ls ([directory,'/*.jpg']);
+                    files = dir(fullfile(directory,'*.jpg'));
                     if ((size(files,1) > 0)) 
                         for f = 1:size(files,1)
-                            filename = files(f,:);
+                            filename = files(f).name;
                             if ~( strcmp(filename,'.') || strcmp(filename,'..'))
                                 % check image has not been processed
                                 %if ~exist(regexprep([directory,filename],'.jpg','.mat'),'file')
@@ -50,7 +50,8 @@ for category = 1:size(categorydir,2)
                         end
                     end  
                 end
-                end
+
+                %end
                 
             end        
         end
@@ -58,3 +59,6 @@ for category = 1:size(categorydir,2)
     end
 
 end
+
+fclose(logfh);
+

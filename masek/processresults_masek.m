@@ -1,14 +1,12 @@
+function processresults_masek
 
+fid = fopen('results_masek.txt','a');
 
-function processresults2a
-
-fid = fopen('masek-results4.txt','a');
-
-list = filelist;
+list = filelist_masek;
 
 for n = 1:size(list,1)
     
-    tmp = strcat(list(n,1),list(n,3));
+    tmp = fullfile(list(n,1),list(n,3));
     filename1 = tmp{:};
 
     if exist(filename1,'file');
@@ -16,11 +14,9 @@ for n = 1:size(list,1)
         ref = load(filename1);
         subject = list(n,2);
         
-        if (str2num(subject{:}) > 29)
-    
         for m = 1:size(list,1)
 
-            tmp = strcat(list(m,1),list(m,3));
+            tmp = fullfile(list(m,1),list(m,3));
             filename2 = tmp{:};
             object = list(m,2);
         
@@ -42,7 +38,7 @@ for n = 1:size(list,1)
             end
         end
 
-        end
     end
   
 end
+fclose(fid)

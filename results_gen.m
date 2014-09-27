@@ -1,8 +1,6 @@
-
-
 function results_gen
 
-fid = fopen('H:/research/matlab/masek/masek-same-results.txt','r');
+fid = fopen('same-results.txt','r');
 
 same = zeros(1,1001);
 diff = zeros(1,1001);
@@ -25,4 +23,4 @@ while ischar(line)
     line = fgetl(fid);
 end
     
-save('masek_gen_results.mat','same','diff','totsam')
+save('gen_results.mat','same','diff','totsam')

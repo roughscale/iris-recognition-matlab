@@ -1,14 +1,14 @@
 
 
-function processsameresult
+function processsameresult_masek
 
 fid = fopen('masek-same-results.txt','a');
 
-list = filelist;
+list = filelist_masek;
 
 for n = 1:size(list,1)
     
-    tmp = strcat(list(n,1),list(n,3));
+    tmp = fullfile(list(n,1),list(n,3));
     filename1 = tmp{:};
 
     if exist(filename1,'file');
@@ -20,7 +20,7 @@ for n = 1:size(list,1)
     
         for m = 1:size(list,1)
 
-            tmp = strcat(list(m,1),list(m,3));
+            tmp = fullfile(list(m,1),list(m,3));
             object = list(m,2);
 
             if strcmp(subject{:},object{:})
@@ -50,6 +50,9 @@ for n = 1:size(list,1)
     end
         
 end
+
+fclose(fid)
+
 end
 
     

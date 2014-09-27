@@ -6,7 +6,7 @@ function [bitCode] = gaborwavelet2(normiris, debug, outfile, logfh)
 % 
 more off;
 
-[R,C] = size(normiris)
+[R,C] = size(normiris);
 % generate null bitCode array
 bitCode = zeros(1,2048);
 
@@ -15,7 +15,7 @@ radialSlices = 1024/angularSlices;
 
 bitCodePos = 1;
 
-maxFilter = R / 3
+maxFilter = R / 3;
 
 for aSlice=0:1:angularSlices-1
     
@@ -81,10 +81,8 @@ for aSlice=0:1:angularSlices-1
             end
         end
 
-        %filteredImage = convn(GB,double(im));
-        size(double(im))
-        size(GB)
-        filteredImage = double(im) * GB;
+        filteredImage = convn(GB,double(im),'same');
+        %filteredImage = double(im) * GB;
 
         % calculate integral of both real and imaginary components
         % of filtered image

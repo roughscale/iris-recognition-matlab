@@ -1,9 +1,9 @@
-function listfiles=filelist2
+function listfiles=filelist_masek
 %
-% gets a list of all saved matlab files
+% gets a list of all saved masek matlab files
 % and feeds them into vector for use as scripting args
 %
-basedir = 'casia_images';
+basedir = 'results2014';
 
 categorydir = { 'CASIA-Iris-Interval' };
 
@@ -25,16 +25,14 @@ for category = categorydir(1)
                 eyes = {'L','R'};
                 for eye = 1:size(eyes,2)   
                     subjecteye = eyes(eye);               
-                    tmpdir = fullfile(subdir,subjecteye,'/');
+                    tmpdir = fullfile(subdir,subjecteye);
                     directory = tmpdir{:};
-                    files = ls ([directory,'/*.jpg']);
+                    files = dir(fullfile(directory,'*-masek.mat'));
                     if ((size(files,1) > 0)) 
                         for f = 1:size(files,1)
-                            filename = files(f,:);
-                            if ~( strcmp(filename,'.') || strcmp(filename,'..'))
-                                % add files to list matrix
-                                listfiles = [listfiles ; { directory, subject, filename } ];                               
-                            end                                   
+                            filename = files(f).name;
+                            % add files to list matrix
+                            listfiles = [listfiles ; { directory, subject, filename } ];                               
                         end
                     end
                 end

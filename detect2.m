@@ -16,11 +16,19 @@ function detect2(directory,filename, debug, logfh);
 more off;
 
 % read image from file
-f=imread([directory,filename]);
+f=imread(fullfile(directory,filename));
 
 % name of output file
 global outfile;
 outfile = regexprep(([directory,filename]),'.jpg','');
+output_base = 'results2014';
+relative_path = regexprep(directory, 'casia_images/', '');
+outfile = fullfile(output_base, relative_path, regexprep(filename, '.jpg', ''));
+% Ensure directory exists
+[outdir, ~, ~] = fileparts(outfile);
+if ~exist(outdir, 'dir')
+    mkdir(outdir);
+end
 
 % get size of image
 [N,M] = size(f);
@@ -66,21 +74,23 @@ end
 %save (savefile, 'coords','-mat')
 
 % generate normalised iris image
-normiris = irisnorm(f,a,b,pR,iR, outfile, logfh);
+%normiris = irisnorm(f,a,b,pR,iR, outfile, logfh);
 normiris2 = irisnorm2(f,a,b,pR,iR, outfile, logfh);
 if debug
-    save([outfile,'-debug'],'irisnorm','irisnorm2','-append');
+    %save([outfile,'-debug'],'irisnorm','irisnorm2','-append');
+    save([outfile,'-debug'],'irisnorm2','-append');
 end
 %figure, imshow(norm)
 %save ([directory,filename,'-norm.mat'], 'normiris','-mat')
 
 % extract feature vector by 2-D Gabor wavelet
-iriscode = gaborwavelet(normiris,debug,outfile, logfh);
-iriscode2 = gaborwavelet(normiris2,debug,outfile, logfh);
+%iriscode = gaborwavelet(normiris,debug,outfile, logfh);
+iriscode2 = gaborwavelet2(normiris2,debug,outfile, logfh);
 
 % show iris bitCode 
 %figure, imshow(reshape(bitCode,16,128))
 %save ([directory,filename,'-iriscode.mat'], 'bitCode','-mat')
 
 % save matrices to disk
-save (outfile, 'coords','normiris','normiris2','iriscode','iriscode2');
+%save (outfile, 'coords','normiris','normiris2','iriscode','iriscode2');
+save (outfile, 'coords','normiris2','iriscode2');
