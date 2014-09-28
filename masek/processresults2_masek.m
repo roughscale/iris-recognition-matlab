@@ -3,8 +3,8 @@ function processresults2_masek
 fid = fopen('results_masek.txt','r');
 
 
-imp = zeros(1,1000);
-gen = zeros(1,1000);
+imp = zeros(1,1001);
+gen = zeros(1,1001);
 totsam = 0;
 totgen = 0;
 
@@ -12,7 +12,7 @@ line = fgetl(fid);
 while ischar(line)
     C = regexp(line,',','split')
     HD = str2double(C(3));
-    ind = uint32(HD * 1000);
+    ind = uint32(HD * 1000) + 1;
     totsam = totsam + 1;
     
     if strcmp(C(2),'true')

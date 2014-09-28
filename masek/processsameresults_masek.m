@@ -1,6 +1,4 @@
-
-
-function processsameresult_masek
+function processsameresults_masek
 
 fid = fopen('masek-same-results.txt','a');
 
